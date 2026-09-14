@@ -101,3 +101,5 @@ h3 .material{
   font-size:13px;font-weight:600;color:var(--solder);
   border:1px solid var(--rule);border-radius:4px;background:var(--panel);
 }
+
+.schematic img{max-width:100%;height:auto;display:block;margin:0 auto}
