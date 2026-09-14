@@ -103,3 +103,12 @@ h3 .material{
 }
 
 .schematic img{max-width:100%;height:auto;display:block;margin:0 auto}
+
+.poster a{display:block}
+.poster img{width:100%;height:auto}
+.pdf-pages{margin:24px 0}
+.pdf-pages canvas{
+  display:block;width:100%;height:auto;margin:0 0 16px;
+  background:var(--panel);border:1px solid var(--rule);border-radius:6px;
+}
+.pdf-status{color:var(--ink-soft);font-size:15px}

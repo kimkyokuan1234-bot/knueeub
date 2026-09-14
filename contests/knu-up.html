@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 KNU-UP 경진대회 · UB</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="../workshops/style.css">
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>2026 KNU-UP 학생 창업아이템 시작품제작 경진대회</h1>
+</header>
+
+<figure class="figure poster">
+  <a href="./knu-up-poster-original.jpg" target="_blank" rel="noopener">
+    <img src="./knu-up-poster.jpg" width="1200" height="1697" alt="2026 KNU-UP 학생 창업아이템 시작품제작 경진대회 포스터">
+  </a>
+  <figcaption>포스터를 누르면 원본 크기로 볼 수 있습니다.</figcaption>
+</figure>
+
+<h2>공고문</h2>
+
+<p><a class="btn" href="./knu-up-notice.pdf" download="2026_KNU-UP_경진대회_공고.pdf">공고문 PDF 다운로드</a></p>
+
+<div id="pdf-pages" class="pdf-pages">
+  <p class="pdf-status">공고문을 불러오는 중입니다…</p>
+</div>
+
+<footer>
+  경북대학교 하드웨어 제작 동아리 UB
+</footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+<script>
+(function () {
+  var PDF_URL = './knu-up-notice.pdf';
+  var CDN = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/';
+  var box = document.getElementById('pdf-pages');
+  var status = box.querySelector('.pdf-status');
+
+  function fail() {
+    status.innerHTML = '이 브라우저에서는 공고문을 바로 표시하지 못했습니다. 위 버튼으로 PDF를 내려받아 확인해 주세요.';
+  }
+  if (!window.pdfjsLib) { fail(); return; }
+
+  pdfjsLib.GlobalWorkerOptions.workerSrc = CDN + 'build/pdf.worker.min.js';
+  pdfjsLib.getDocument({
+    url: PDF_URL,
+    cMapUrl: CDN + 'cmaps/',
+    cMapPacked: true,
+    standardFontDataUrl: CDN + 'standard_fonts/'
+  }).promise.then(function (pdf) {
+    status.remove();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var cssWidth = box.clientWidth;
+    var chain = Promise.resolve();
+    for (var n = 1; n <= pdf.numPages; n++) {
+      (function (num) {
+        var canvas = document.createElement('canvas');
+        canvas.setAttribute('aria-label', '공고문 ' + num + '쪽');
+        box.appendChild(canvas);
+        chain = chain.then(function () {
+          return pdf.getPage(num).then(function (page) {
+            var base = page.getViewport({ scale: 1 });
+            var vp = page.getViewport({ scale: (cssWidth / base.width) * dpr });
+            canvas.width = Math.floor(vp.width);
+            canvas.height = Math.floor(vp.height);
+            return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+          });
+        });
+      })(n);
+    }
+    return chain;
+  }).catch(fail);
+})();
+</script>
+</body>
+</html>
