@@ -30,7 +30,7 @@ p{margin:0 0 18px;max-width:36em}
 a{color:var(--solder)}
 
 .figure{margin:28px 0}
-.figure img{width:100%;display:block;border:1px solid var(--rule);border-radius:6px}
+.figure img{max-width:100%;display:block;border:1px solid var(--rule);border-radius:6px}
 .figure figcaption{font-size:14px;color:var(--ink-soft);margin-top:10px}
 .placeholder{
   border:1px dashed var(--rule);border-radius:6px;background:var(--panel);
