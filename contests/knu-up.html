@@ -40,13 +40,84 @@
 (function () {
   var PDF_URL = './knu-up-notice.pdf';
   var CDN = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/';
+  var NARROW = 600;
   var box = document.getElementById('pdf-pages');
   var status = box.querySelector('.pdf-status');
 
   function fail() {
-    status.innerHTML = '이 브라우저에서는 공고문을 바로 표시하지 못했습니다. 위 버튼으로 PDF를 내려받아 확인해 주세요.';
+    status.textContent = '이 브라우저에서는 공고문을 바로 표시하지 못했습니다. 위 버튼으로 PDF를 내려받아 확인해 주세요.';
+    if (!status.parentNode) box.appendChild(status);
   }
   if (!window.pdfjsLib) { fail(); return; }
+
+  function boxWidth() {
+    return box.clientWidth || document.querySelector('.wrap').clientWidth || window.innerWidth - 36;
+  }
+
+  // 흰 여백만 있는 절반은 건너뛴다 (마지막 장 오른쪽 등)
+  function isBlank(c) {
+    var d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
+    for (var i = 0; i < d.length; i += 4 * 23) {
+      if (d[i] < 230 || d[i + 1] < 230 || d[i + 2] < 230) return false;
+    }
+    return true;
+  }
+
+  function addCanvas(src, sx, sw, label) {
+    var c = document.createElement('canvas');
+    c.width = sw; c.height = src.height;
+    c.getContext('2d').drawImage(src, sx, 0, sw, src.height, 0, 0, sw, src.height);
+    if (isBlank(c)) return;
+    c.setAttribute('role', 'img');
+    c.setAttribute('aria-label', label);
+    box.appendChild(c);
+  }
+
+  var pdfDoc = null, renderedNarrow = null, running = false;
+
+  function renderAll() {
+    if (running) return;
+    running = true;
+    var cssWidth = boxWidth();
+    var narrow = cssWidth < NARROW;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var sheets = [];
+    var chain = Promise.resolve();
+    var shown = 0;
+
+    for (var n = 1; n <= pdfDoc.numPages; n++) {
+      (function (num) {
+        chain = chain.then(function () {
+          return pdfDoc.getPage(num).then(function (page) {
+            var base = page.getViewport({ scale: 1 });
+            var split = narrow && base.width > base.height;
+            var target = split ? cssWidth * 2 : cssWidth;
+            var vp = page.getViewport({ scale: (target / base.width) * dpr });
+            var full = document.createElement('canvas');
+            full.width = Math.floor(vp.width);
+            full.height = Math.floor(vp.height);
+            return page.render({ canvasContext: full.getContext('2d'), viewport: vp }).promise.then(function () {
+              sheets.push({ canvas: full, split: split });
+            });
+          });
+        });
+      })(n);
+    }
+
+    chain.then(function () {
+      box.innerHTML = '';
+      sheets.forEach(function (s) {
+        if (s.split) {
+          var half = Math.floor(s.canvas.width / 2);
+          addCanvas(s.canvas, 0, half, '공고문 ' + (++shown) + '쪽');
+          addCanvas(s.canvas, half, s.canvas.width - half, '공고문 ' + (++shown) + '쪽');
+        } else {
+          addCanvas(s.canvas, 0, s.canvas.width, '공고문 ' + (++shown) + '쪽');
+        }
+      });
+      renderedNarrow = narrow;
+    }).catch(fail).then(function () { running = false; });
+  }
 
   pdfjsLib.GlobalWorkerOptions.workerSrc = CDN + 'build/pdf.worker.min.js';
   pdfjsLib.getDocument({
@@ -55,29 +126,20 @@
     cMapPacked: true,
     standardFontDataUrl: CDN + 'standard_fonts/'
   }).promise.then(function (pdf) {
-    status.remove();
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var cssWidth = box.clientWidth;
-    var chain = Promise.resolve();
-    for (var n = 1; n <= pdf.numPages; n++) {
-      (function (num) {
-        var canvas = document.createElement('canvas');
-        canvas.setAttribute('aria-label', '공고문 ' + num + '쪽');
-        box.appendChild(canvas);
-        chain = chain.then(function () {
-          return pdf.getPage(num).then(function (page) {
-            var base = page.getViewport({ scale: 1 });
-            var vp = page.getViewport({ scale: (cssWidth / base.width) * dpr });
-            canvas.width = Math.floor(vp.width);
-            canvas.height = Math.floor(vp.height);
-            return page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
-          });
-        });
-      })(n);
-    }
-    return chain;
+    pdfDoc = pdf;
+    renderAll();
   }).catch(fail);
+
+  // 화면 폭이 좁음/넓음 경계를 넘을 때만 다시 그림 (회전 등)
+  var timer;
+  window.addEventListener('resize', function () {
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      if (pdfDoc && renderedNarrow !== null && (boxWidth() < NARROW) !== renderedNarrow) renderAll();
+    }, 250);
+  });
 })();
 </script>
+
 </body>
 </html>
