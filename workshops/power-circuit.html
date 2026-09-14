@@ -16,11 +16,17 @@
   <p class="lede">세상에서 가장 많이 쓰이는 강압 컨버터를 완제품 모듈이 아니라 부품 단위로 직접 만듭니다.</p>
 </header>
 
+<div class="callout guide">
+  <p class="title">납땜이 처음이라면, 이것부터 보고 오세요</p>
+  <p>인두 잡는 법부터 정리해둔 UB 납땜 가이드가 있습니다. 실습 전에 한 번 훑어보고 오시면 훨씬 수월합니다.</p>
+  <p><a class="btn" href="../index.html">UB 납땜 가이드 보기 →</a></p>
+</div>
+
 <h2>무엇을 만드나</h2>
 
 <!-- 예시 이미지: 직접 만든 완성품 사진이 나오면 교체 -->
 <figure class="figure">
-  <img src="./power-circuit-example.png" alt="만능기판에 LM2596, 방열판, 인덕터, 전해 커패시터, 트리머, 스크류 터미널을 조립한 가변 전원 완성품">
+  <img src="./power-circuit-example.png" alt="만능기판에 LM2596, 방열판, 인덕터, 전해 커패시터, 가변저항, 스크류 터미널을 조립한 가변 전원 완성품">
   <figcaption>예시 이미지 — 직접 만든 완성품이 아닌 참고용입니다. 출처: <a href="https://www.youtube.com/watch?v=qyNq8VxPgoA">YouTube 영상</a></figcaption>
 </figure>
 
@@ -34,7 +40,7 @@
 
 <ul class="spec">
   <li><span class="k">입력 전압</span><span class="v">7 ~ 24V DC</span></li>
-  <li><span class="k">출력 전압</span><span class="v">1.23V ~ 입력 −2V, 트리머로 가변</span></li>
+  <li><span class="k">출력 전압</span><span class="v">1.23V ~ 입력 −2V, 가변저항으로 가변</span></li>
   <li><span class="k">최대 출력 전류</span><span class="v">3A</span></li>
   <li><span class="k">스위칭 주파수</span><span class="v">150kHz</span></li>
   <li><span class="k">방식</span><span class="v">비동기식 벅 컨버터</span></li>
@@ -45,7 +51,7 @@
 <div class="schematic">
 <svg viewBox="0 0 680 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="scTitle scDesc">
 <title id="scTitle">LM2596-ADJ 가변 벅 컨버터 회로도</title>
-<desc id="scDesc">입력 커패시터 470µF, LM2596T-ADJ, 쇼트키 다이오드 1N5822, 인덕터 47µH, 출력 커패시터 220µF, 피드백 분압 저항 340옴과 10k 트리머, 피드포워드 커패시터 3.2nF으로 구성된 강압 컨버터 회로도</desc>
+<desc id="scDesc">입력 커패시터 470µF, LM2596T-ADJ, 쇼트키 다이오드 1N5822, 인덕터 47µH, 출력 커패시터 220µF, 피드백 분압 저항 340옴과 10k 가변저항, 피드포워드 커패시터 3.2nF으로 구성된 강압 컨버터 회로도</desc>
 <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
 <g stroke="#16201c" fill="none" stroke-width="1.2">
 <circle cx="62" cy="95" r="5"/>
@@ -112,7 +118,7 @@
 <text x="506" y="133" text-anchor="end">C<tspan font-size="9" dy="3">OUT</tspan></text>
 <text x="506" y="147" text-anchor="end">220µF</text>
 <text x="575" y="202" text-anchor="middle">C<tspan font-size="9" dy="3">FF</tspan><tspan font-size="12" dy="-3"> 3.2nF</tspan></text>
-<text x="640" y="134">VR<tspan font-size="9" dy="3">1</tspan></text>
+<text x="640" y="134">R<tspan font-size="9" dy="3">2</tspan></text>
 <text x="640" y="148">10kΩ</text>
 <text x="588" y="228" text-anchor="end">R<tspan font-size="9" dy="3">1</tspan></text>
 <text x="588" y="242" text-anchor="end">340Ω</text>
@@ -126,7 +132,7 @@
 </svg>
 </div>
 
-<p>5번 ON/OFF 핀은 GND에 묶어 항상 동작 상태로 둡니다. 출력 전압은 VR<sub>1</sub>을 돌려 조정하며, V<sub>OUT</sub> = 1.23 × (1 + VR<sub>1</sub>/R<sub>1</sub>) 로 정해집니다.</p>
+<p>5번 ON/OFF 핀은 GND에 묶어 항상 동작 상태로 둡니다. 출력 전압은 R<sub>2</sub>를 돌려 조정하며, V<sub>OUT</sub> = 1.23 × (1 + R<sub>2</sub>/R<sub>1</sub>) 로 정해집니다.</p>
 
 <h2>부품 목록</h2>
 
@@ -137,15 +143,16 @@
   </thead>
   <tbody>
     <tr><td>U<sub>1</sub></td><td>LM2596T-ADJ</td><td>TO-220 5핀, 스루홀</td><td>1</td></tr>
-    <tr><td>L<sub>1</sub></td><td>파워 인덕터</td><td>47µH, 정격 3A 이상</td><td>1</td></tr>
+    <tr><td>L<sub>1</sub></td><td>파워 인덕터</td><td>47µH, 정격 3A</td><td>1</td></tr>
     <tr><td>D<sub>1</sub></td><td>1N5822</td><td>쇼트키 3A 40V</td><td>1</td></tr>
     <tr><td>C<sub>IN</sub></td><td>전해 커패시터</td><td>470µF 50V, 저ESR</td><td>1</td></tr>
     <tr><td>C<sub>OUT</sub></td><td>전해 커패시터</td><td>220µF 50V, 저ESR</td><td>1</td></tr>
-    <tr><td>C<sub>FF</sub></td><td>세라믹 커패시터</td><td>0.001µF + 0.0022µF 병렬</td><td>2</td></tr>
-    <tr><td>R<sub>1</sub></td><td>금속피막 저항</td><td>680Ω 1% 2개 병렬 = 340Ω</td><td>2</td></tr>
-    <tr><td>VR<sub>1</sub></td><td>3296W 트리머</td><td>10kΩ, 25턴</td><td>1</td></tr>
+    <tr><td>C<sub>FF</sub></td><td>세라믹 커패시터</td><td>1nF + 2.2nF 병렬 = 3.2nF</td><td>1nF 1개<br>2.2nF 1개</td></tr>
+    <tr><td>R<sub>1</sub></td><td>금속피막 저항</td><td>680Ω + 680Ω 병렬 = 340Ω, 1%</td><td>680Ω 2개</td></tr>
+    <tr><td>R<sub>2</sub></td><td>가변저항</td><td>3296W, 10kΩ, 25턴</td><td>1</td></tr>
   </tbody>
 </table>
+<p class="table-note">R<sub>1</sub>과 C<sub>FF</sub>는 딱 맞는 값의 부품이 없어 두 개를 병렬로 묶어 하나처럼 씁니다. 그래서 회로도상 기호는 하나지만, 수량 칸에는 실제로 챙길 부품 개수를 적었습니다.</p>
 
 <table>
   <caption>부속 자재</caption>
@@ -153,11 +160,11 @@
     <tr><th>품목</th><th>사양</th><th>수량</th></tr>
   </thead>
   <tbody>
-    <tr><td>만능기판</td><td>7 × 9cm</td><td>1</td></tr>
+    <tr><td>만능기판</td><td>5 × 7cm</td><td>1</td></tr>
     <tr><td>방열판</td><td>34 × 25 × 12mm</td><td>1</td></tr>
-    <tr><td>체결 나사</td><td>M3 볼트 + 너트</td><td>1조</td></tr>
+    <tr><td>체결 나사</td><td>M3 볼트</td><td>1</td></tr>
     <tr><td>스크류 터미널</td><td>2핀, 5.08mm 피치</td><td>2</td></tr>
-    <tr><td>배선재</td><td>주석도금선</td><td>소량</td></tr>
+    <tr><td>배선재</td><td>난연성 전선(스풀)</td><td>소량</td></tr>
   </tbody>
 </table>
 
@@ -169,13 +176,8 @@
   <li><span class="k">일시</span><span class="v">추후 공지</span></li>
   <li><span class="k">장소</span><span class="v">IT2호관 226호 캡스톤디자인실</span></li>
   <li><span class="k">준비물</span><span class="v">없음</span></li>
+  <li><span class="k">사전 준비</span><span class="v"><a href="../index.html">UB 납땜 가이드</a> 한 번 훑어보기</span></li>
 </ul>
-
-<div class="callout">
-  <p class="title">납땜이 처음이신가요</p>
-  <p>인두 잡는 법부터 정리해둔 가이드가 있습니다. 실습 전에 한 번 훑어보고 오시면 훨씬 수월합니다.</p>
-  <p><a href="../index.html">UB 납땜 가이드 보기</a></p>
-</div>
 
 <section class="pending">
   <h2>제작 가이드</h2>
