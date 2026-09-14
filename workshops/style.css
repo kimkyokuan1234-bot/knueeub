@@ -94,3 +94,10 @@ footer{margin-top:72px;padding-top:24px;border-top:1px solid var(--rule);font-si
 }
 .btn:hover{background:var(--ink)}
 .table-note{font-size:14px;color:var(--ink-soft);margin:-12px 0 24px}
+
+h3{font-size:19px;font-weight:700;margin:40px 0 0;letter-spacing:-.01em}
+h3 .material{
+  display:inline-block;margin-left:8px;padding:1px 9px;vertical-align:2px;
+  font-size:13px;font-weight:600;color:var(--solder);
+  border:1px solid var(--rule);border-radius:4px;background:var(--panel);
+}
