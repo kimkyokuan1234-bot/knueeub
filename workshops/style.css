@@ -101,6 +101,9 @@ h3 .material{
   font-size:13px;font-weight:600;color:var(--solder);
   border:1px solid var(--rule);border-radius:4px;background:var(--panel);
 }
+h3 + p,h3 + ul,h3 + ol{margin-top:14px}
+
+.btn-row{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0 24px}
 
 .schematic img{max-width:100%;height:auto;display:block;margin:0 auto}
 
