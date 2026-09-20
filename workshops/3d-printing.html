@@ -52,13 +52,10 @@
 
 <h2>부품 목록</h2>
 
-<!-- 부품 사진 자리 — 사진 파일을 ./clicker-parts.jpg 로 넣고 아래 figure 주석을 해제하세요 -->
-<div class="placeholder">부품 사진이 들어갈 자리입니다</div>
-<!--
 <figure class="figure">
-  <img src="./clicker-parts.jpg" alt="키보드 스위치, CR2032 배터리, RGB LED, 스피커, 사운드 IC, 저항, 전해 커패시터를 늘어놓은 클리커 부품 사진">
+  <img src="./clicker-parts.webp" alt="자 옆에 늘어놓은 클리커 부품 — 기계식 키보드 스위치, 초록색 스피커, CR2032 배터리, 2핀 RGB LED, 그리고 P00~P13 핀이 표시된 사운드 IC 보드">
+  <figcaption>눈금자 기준으로 보시면 부품 크기를 가늠하실 수 있습니다. 사운드 IC 보드 가장자리에 P00~P13 핀 이름이 적혀 있습니다.</figcaption>
 </figure>
--->
 
 <table>
   <caption>클리커 1개 기준</caption>
@@ -79,8 +76,8 @@
 <p>스피커와 사운드 IC는 아래 링크에서 구매했습니다. 참고하실 분은 확인해 보세요.</p>
 
 <p class="btn-row">
-  <a class="btn" href="https://ko.aliexpress.com/item/1005008987121228.html">스피커 구매 링크 →</a>
-  <a class="btn" href="https://ko.aliexpress.com/item/1005006144564347.html">사운드 IC 구매 링크 →</a>
+  <a class="btn" href="https://ko.aliexpress.com/item/1005008987121228.html">스피커 판매 페이지 →</a>
+  <a class="btn" href="https://ko.aliexpress.com/item/1005006144564347.html">사운드 IC 판매 페이지 →</a>
 </p>
 
 <h2>배선 방법</h2>
@@ -92,7 +89,7 @@
   <li>배터리 → VCC, GND</li>
 </ul>
 
-<p>22Ω 저항은 스피커와 직렬로 연결합니다. 소리가 너무 커서 줄이는 용도입니다.</p>
+<p>22Ω 저항은 스피커와 직렬로 연결합니다. CR2032는 순간적으로 큰 전류를 감당하기 어려워서, 저항으로 전류를 제한해 배터리 부담을 줄여줍니다.</p>
 
 <p>470µF 커패시터는 CR2032 양단에 병렬로 답니다. 돌입전류를 막아줍니다.</p>
 
@@ -119,11 +116,20 @@
   </tbody>
 </table>
 
-<p class="table-note">P12, P13은 총기·폭발음입니다. 필요하시면 IC 데이터시트를 참고하세요.</p>
+<div class="callout">
+  <p class="title">참고</p>
+  <p>P12, P13은 총기·폭발음입니다. 필요하시면 IC 데이터시트를 참고하세요.</p>
+</div>
 
 <h3>LED 연결 <span class="material">확정 전</span></h3>
 
 <p>데이터시트상 LED는 P01에 연결하게 되어 있는데, 여기에 달면 6Hz로 계속 깜빡이기만 하고 색이 변하지 않습니다. 색도 변하면서 제대로 동작하는 위치를 찾는 중이라, 확정되면 이 페이지에 업데이트하겠습니다.</p>
+
+<div class="callout guide">
+  <p class="title">납땜이 처음이신가요</p>
+  <p>클리커 내부 회로까지 만들어보실 분은 납땜 가이드를 참고하세요.</p>
+  <p><a class="btn" href="https://kimkyokuan1234-bot.github.io/knueeub/index.html">UB 납땜 가이드 보기 →</a></p>
+</div>
 
 <h2>왜 이 활동을 하나</h2>
 
@@ -178,12 +184,6 @@
 <div class="callout">
   <p class="title">참고</p>
   <p>현재 동아리 프린터로는 위 사례 중 일부 엔지니어링 필라멘트(PET-CF, PA6-GF 등)를 출력할 수 없습니다. 이런 재료는 높은 온도와 챔버 환경이 필요합니다. 현재 엔지니어링 필라멘트도 출력 가능한 프린터를 구하는 중입니다.</p>
-</div>
-
-<div class="callout guide">
-  <p class="title">납땜이 처음이신가요</p>
-  <p>클리커 내부 회로까지 만들어보실 분은 납땜 가이드를 참고하세요.</p>
-  <p><a class="btn" href="../index.html">UB 납땜 가이드 보기 →</a></p>
 </div>
 
 <footer>
