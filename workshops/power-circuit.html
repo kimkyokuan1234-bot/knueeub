@@ -21,10 +21,10 @@
   <ul>
     <li><a href="#about">무엇을 만드나</a></li>
     <li><a href="#spec">완성 스펙</a></li>
-    <li><a href="#schematic">회로도</a></li>
-    <li><a href="#bom">부품 목록</a></li>
     <li><a href="#info">참여 안내</a></li>
     <li><a href="#smps">더 어려운 것 — SMPS</a></li>
+    <li><a href="#schematic">회로도</a></li>
+    <li><a href="#bom">부품 목록</a></li>
     <li><a href="#guide">제작 가이드</a></li>
   </ul>
 </nav>
@@ -60,6 +60,33 @@
   <li><span class="k">스위칭 주파수</span><span class="v">150kHz</span></li>
   <li><span class="k">방식</span><span class="v">비동기식 벅 컨버터</span></li>
 </ul>
+</section>
+
+<section class="section reveal">
+<h2 id="info">참여 안내</h2>
+
+<ul class="spec">
+  <li><span class="k">소요 시간</span><span class="v">2시간 30분 내외</span></li>
+  <li><span class="k">필요 경험</span><span class="v">없음 — 납땜 처음이어도 됩니다</span></li>
+  <li><span class="k">일시</span><span class="v">추후 공지</span></li>
+  <li><span class="k">장소</span><span class="v">IT2호관 캡스톤디자인실</span></li>
+  <li><span class="k">준비물</span><span class="v">없음</span></li>
+  <li><span class="k">사전 준비</span><span class="v"><a href="../index.html">UB 납땜 가이드</a> 정독. 시간 되면 이 페이지 훑어보고 <a href="#video">제작 영상</a>도 한 번 보기</span></li>
+</ul>
+</section>
+
+<section class="section reveal">
+<h2 id="smps">더 어려운 것을 만들어 보고 싶다면 — SMPS</h2>
+
+<div class="schematic">
+  <img src="./smps-schematic.png" alt="VIPer22A 기반 SMPS 회로도: 퓨즈와 NTC, 브리지 정류 다이오드, 트랜스포머, PC817 포토커플러와 TL431 피드백, 12V 출력과 7805 5V 레귤레이터">
+</div>
+
+<p>SMPS(스위칭 모드 전원공급장치)는 교류 220V를 직류로 바꿔주는 회로입니다. 우리가 쓰는 어댑터, 컴퓨터 파워가 전부 이 방식입니다.</p>
+
+<p>이번 기본 실습(DC-DC 컨버터)보다 부품 수가 많고 시간도 더 걸리지만, 회로도와 설명서를 직접 읽으며 조립하는 경험을 제대로 할 수 있습니다. 완성 후에는 오실로스코프로 주요 지점의 파형을 측정해서 동작 원리를 직접 분석해볼 수도 있습니다.</p>
+
+<p>관심 있으신 분은 따로 말씀해 주세요.</p>
 </section>
 
 <section class="section reveal">
@@ -188,33 +215,6 @@
 </table>
 </section>
 
-<section class="section reveal">
-<h2 id="info">참여 안내</h2>
-
-<ul class="spec">
-  <li><span class="k">소요 시간</span><span class="v">2시간 30분 내외</span></li>
-  <li><span class="k">필요 경험</span><span class="v">없음 — 납땜 처음이어도 됩니다</span></li>
-  <li><span class="k">일시</span><span class="v">추후 공지</span></li>
-  <li><span class="k">장소</span><span class="v">IT2호관 캡스톤디자인실</span></li>
-  <li><span class="k">준비물</span><span class="v">없음</span></li>
-  <li><span class="k">사전 준비</span><span class="v"><a href="../index.html">UB 납땜 가이드</a> 정독. 시간 되면 이 페이지 훑어보고 <a href="#video">제작 영상</a>도 한 번 보기</span></li>
-</ul>
-</section>
-
-<section class="section reveal">
-<h2 id="smps">더 어려운 것을 만들어 보고 싶다면 — SMPS</h2>
-
-<div class="schematic">
-  <img src="./smps-schematic.png" alt="VIPer22A 기반 SMPS 회로도: 퓨즈와 NTC, 브리지 정류 다이오드, 트랜스포머, PC817 포토커플러와 TL431 피드백, 12V 출력과 7805 5V 레귤레이터">
-</div>
-
-<p>SMPS(스위칭 모드 전원공급장치)는 교류 220V를 직류로 바꿔주는 회로입니다. 우리가 쓰는 어댑터, 컴퓨터 파워가 전부 이 방식입니다.</p>
-
-<p>이번 기본 실습(DC-DC 컨버터)보다 부품 수가 많고 시간도 더 걸리지만, 회로도와 설명서를 직접 읽으며 조립하는 경험을 제대로 할 수 있습니다. 완성 후에는 오실로스코프로 주요 지점의 파형을 측정해서 동작 원리를 직접 분석해볼 수도 있습니다.</p>
-
-<p>관심 있으신 분은 따로 말씀해 주세요.</p>
-</section>
-
 <section class="guide section reveal">
 
 <h2 id="guide">제작 가이드</h2>
@@ -332,7 +332,6 @@
 </ul>
 
 </section>
-
 
 <script>
 (function () {
