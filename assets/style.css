@@ -6,6 +6,7 @@
   --rule:#d6d9d2;
   --solder:#1f6b4d;
   --pad:#b8892b;
+  --warn:#a8392c;
 }
 *{box-sizing:border-box}
 body{
@@ -183,3 +184,14 @@ h2 .sec-n{
 .toc a{display:flex;align-items:baseline;gap:11px}
 .toc .n{color:var(--pad);font-weight:700;min-width:1em;font-variant-numeric:tabular-nums}
 .toc a:hover .n{color:var(--solder)}
+
+/* 주의 콜아웃 (index.html 톤) */
+.callout.warn{border-left-color:var(--warn)}
+.callout .c-label{
+  display:block;font-weight:700;font-size:13.5px;letter-spacing:.04em;
+  margin:0 0 6px;color:var(--solder);
+}
+.callout.warn .c-label{color:var(--warn)}
+
+/* 푸터 줄 간격 */
+footer{line-height:1.9}
