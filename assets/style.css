@@ -174,3 +174,12 @@ button.btn{border:0;font:inherit;cursor:pointer}
 @media print{
   .reveal{opacity:1;transform:none}
 }
+
+/* 섹션 번호 */
+h2 .sec-n{
+  display:inline-block;margin-right:11px;color:var(--pad);
+  font-weight:700;font-variant-numeric:tabular-nums;
+}
+.toc a{display:flex;align-items:baseline;gap:11px}
+.toc .n{color:var(--pad);font-weight:700;min-width:1em;font-variant-numeric:tabular-nums}
+.toc a:hover .n{color:var(--solder)}
