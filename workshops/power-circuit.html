@@ -343,7 +343,11 @@
 (function () {
   // 영상이 준비되면 아래 ID를 채우세요. 비어 있으면 "영상 준비 중"이 표시되고
   // 각 단계의 "이 부분 영상 보기" 버튼은 숨겨집니다.
-  var VIDEO_ID = "Cy1xjHaoqGI"; // 임시: 공개 영상으로 오류 153 원인 확인용 (원래 값 s9SFyxD4bck)
+  var VIDEO_ID = "s9SFyxD4bck";
+
+  // 파일을 직접 열면(file://, data:) origin이 없어 유튜브가 플레이어를 막는다(오류 153).
+  // 그런 경우에는 임베드 대신 유튜브에서 열도록 한다.
+  var CAN_EMBED = location.protocol === 'https:' || location.protocol === 'http:';
 
   var box = document.getElementById('video-box');
   var jumps = document.querySelectorAll('.video-jump');
@@ -356,11 +360,16 @@
     }
   }
 
+  function watchUrl(start) {
+    return 'https://youtu.be/' + VIDEO_ID + (start ? '?t=' + start : '');
+  }
+
   function embed(start) {
+    if (!CAN_EMBED) { window.open(watchUrl(start), '_blank', 'noopener'); return; }
     // origin을 명시해야 리퍼러가 차단된 환경에서도 플레이어가 구성된다 (오류 153 방지)
     var src = 'https://www.youtube.com/embed/' + VIDEO_ID +
               '?rel=0&playsinline=1' +
-              '&origin=' + encodeURIComponent(location.origin) +
+              (CAN_EMBED ? '&origin=' + encodeURIComponent(location.origin) : '') +
               (start ? '&start=' + start : '');
     var frame = document.createElement('iframe');
     frame.src = src;
@@ -373,8 +382,7 @@
     // 브라우저 설정이나 확장 프로그램 때문에 재생이 막히는 경우를 위한 대체 링크
     var alt = document.createElement('p');
     alt.className = 'video-alt';
-    alt.innerHTML = '재생되지 않나요? <a href="https://youtu.be/' + VIDEO_ID +
-                    (start ? '?t=' + start : '') + '" target="_blank" rel="noopener">YouTube에서 보기</a>';
+    alt.innerHTML = '재생되지 않나요? <a href="' + watchUrl(start) + '" target="_blank" rel="noopener">YouTube에서 보기</a>';
     box.appendChild(alt);
   }
 
@@ -395,6 +403,12 @@
     btn.addEventListener('click', function () { embed(0); });
     box.innerHTML = '';
     box.appendChild(btn);
+    if (!CAN_EMBED) {
+      var note = document.createElement('p');
+      note.className = 'video-alt';
+      note.textContent = '파일을 직접 열어 보고 있어 영상이 여기서 재생되지 않습니다. 누르면 유튜브에서 열립니다.';
+      box.appendChild(note);
+    }
   }
 
   if (VIDEO_ID) facade();
