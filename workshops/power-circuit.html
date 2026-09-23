@@ -16,13 +16,27 @@
   <p class="lede">세상에서 가장 많이 쓰이는 강압 컨버터를 완제품 모듈이 아니라 부품 단위로 직접 만듭니다.</p>
 </header>
 
+<nav class="toc" aria-label="목차">
+  <h2>목차</h2>
+  <ul>
+    <li><a href="#about">무엇을 만드나</a></li>
+    <li><a href="#spec">완성 스펙</a></li>
+    <li><a href="#schematic">회로도</a></li>
+    <li><a href="#bom">부품 목록</a></li>
+    <li><a href="#info">참여 안내</a></li>
+    <li><a href="#smps">더 어려운 것 — SMPS</a></li>
+    <li><a href="#guide">제작 가이드</a></li>
+  </ul>
+</nav>
+
 <div class="callout guide">
   <p class="title">납땜이 처음이라면, 이것부터 보고 오세요</p>
   <p>인두 잡는 법부터 정리해둔 UB 납땜 가이드가 있습니다. 실습 전에 한 번 훑어보고 오시면 훨씬 수월합니다.</p>
   <p><a class="btn" href="../index.html">UB 납땜 가이드 보기 →</a></p>
 </div>
 
-<h2>무엇을 만드나</h2>
+<section class="section reveal">
+<h2 id="about">무엇을 만드나</h2>
 
 <!-- 완성품 대표 사진 -->
 <figure class="figure">
@@ -34,8 +48,10 @@
 <p>데이터시트를 읽고 인덕터와 커패시터를 왜 그 값으로 고르는지 따져본 뒤, 만능기판에 배치하고 납땜합니다. 완성하면 12V 어댑터 하나로 3.3V, 5V, 9V를 자유롭게 뽑아 쓸 수 있는 가변 전원이 생깁니다. 앞으로 개인 프로젝트 전원부는 이걸로 해결하시면 됩니다.</p>
 
 <p>오실로스코프로 스위칭 파형을 직접 보고 듀티비와 출력 전압의 관계를 확인하는 시간도 준비했습니다. 전력전자 수업에서 식으로만 봤던 내용을 실물로 만나는 자리입니다.</p>
+</section>
 
-<h2>완성 스펙</h2>
+<section class="section reveal">
+<h2 id="spec">완성 스펙</h2>
 
 <ul class="spec">
   <li><span class="k">입력 전압</span><span class="v">7 ~ 24V DC</span></li>
@@ -44,8 +60,10 @@
   <li><span class="k">스위칭 주파수</span><span class="v">150kHz</span></li>
   <li><span class="k">방식</span><span class="v">비동기식 벅 컨버터</span></li>
 </ul>
+</section>
 
-<h2>회로도</h2>
+<section class="section reveal">
+<h2 id="schematic">회로도</h2>
 
 <div class="schematic">
 <svg viewBox="0 0 680 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="scTitle scDesc">
@@ -132,8 +150,10 @@
 </div>
 
 <p>5번 ON/OFF 핀은 GND에 묶어 항상 동작 상태로 둡니다. 출력 전압은 R<sub>2</sub>를 돌려 조정하며, V<sub>OUT</sub> = 1.23 × (1 + R<sub>2</sub>/R<sub>1</sub>) 로 정해집니다.</p>
+</section>
 
-<h2>부품 목록</h2>
+<section class="section reveal">
+<h2 id="bom">부품 목록</h2>
 
 <table>
   <caption>보드 1장 기준</caption>
@@ -166,8 +186,10 @@
     <tr><td>배선재</td><td>난연성 전선(스풀)</td><td>소량</td></tr>
   </tbody>
 </table>
+</section>
 
-<h2>참여 안내</h2>
+<section class="section reveal">
+<h2 id="info">참여 안내</h2>
 
 <ul class="spec">
   <li><span class="k">소요 시간</span><span class="v">2시간 30분 내외</span></li>
@@ -177,8 +199,10 @@
   <li><span class="k">준비물</span><span class="v">없음</span></li>
   <li><span class="k">사전 준비</span><span class="v"><a href="../index.html">UB 납땜 가이드</a> 정독, 이 페이지 훑어보기, 시간 되면 <a href="#video">제작 영상</a> 한 번 보기</span></li>
 </ul>
+</section>
 
-<h2>더 어려운 것을 만들어 보고 싶다면 — SMPS</h2>
+<section class="section reveal">
+<h2 id="smps">더 어려운 것을 만들어 보고 싶다면 — SMPS</h2>
 
 <div class="schematic">
   <img src="./smps-schematic.png" alt="VIPer22A 기반 SMPS 회로도: 퓨즈와 NTC, 브리지 정류 다이오드, 트랜스포머, PC817 포토커플러와 TL431 피드백, 12V 출력과 7805 5V 레귤레이터">
@@ -189,10 +213,11 @@
 <p>이번 기본 실습(DC-DC 컨버터)보다 부품 수가 많고 시간도 더 걸리지만, 회로도와 설명서를 직접 읽으며 조립하는 경험을 제대로 할 수 있습니다. 완성 후에는 오실로스코프로 주요 지점의 파형을 측정해서 동작 원리를 직접 분석해볼 수도 있습니다.</p>
 
 <p>관심 있으신 분은 따로 말씀해 주세요.</p>
+</section>
 
-<section class="guide">
+<section class="guide section reveal">
 
-<h2>제작 가이드</h2>
+<h2 id="guide">제작 가이드</h2>
 
 <h3>1. 준비물</h3>
 <figure class="figure">
@@ -304,7 +329,6 @@
   <li><strong>부하를 늘려보기</strong> — 출력 전류가 커지면 리플도 같이 커집니다.</li>
 </ul>
 
-
 </section>
 
 
@@ -377,5 +401,6 @@
 </footer>
 
 </div>
+<script src="./reveal.js"></script>
 </body>
 </html>

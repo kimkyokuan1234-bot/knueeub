@@ -146,3 +146,31 @@ button.btn{border:0;font:inherit;cursor:pointer}
 }
 .video-facade:hover .video-play{background:var(--solder)}
 .video-box .placeholder{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;padding:0}
+
+/* 목차 */
+.toc{
+  margin:36px 0 8px;padding:20px 22px;
+  background:var(--panel);border:1px solid var(--rule);border-radius:6px;
+}
+.toc h2{
+  font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-soft);margin:0 0 12px;
+}
+.toc h2::before{content:none}
+.toc ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:2px 28px}
+.toc li{margin:0}
+.toc a{display:block;padding:6px 0;text-decoration:none;color:var(--ink);font-size:15.5px}
+.toc a:hover{color:var(--solder)}
+@media (max-width:600px){
+  .toc ul{grid-template-columns:1fr}
+}
+
+/* 스크롤 시 섹션이 나타나는 효과 (reveal.js) */
+.reveal{opacity:0;transform:translateY(14px)}
+.reveal.in{opacity:1;transform:none;transition:opacity .55s ease,transform .55s ease}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none}
+}
+@media print{
+  .reveal{opacity:1;transform:none}
+}
