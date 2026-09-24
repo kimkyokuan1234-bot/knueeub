@@ -368,13 +368,13 @@
     if (!CAN_EMBED) { window.open(watchUrl(start), '_blank', 'noopener'); return; }
     // origin을 명시해야 리퍼러가 차단된 환경에서도 플레이어가 구성된다 (오류 153 방지)
     var src = 'https://www.youtube.com/embed/' + VIDEO_ID +
-              '?rel=0&playsinline=1' +
+              '?autoplay=1&rel=0&playsinline=1' +
               (CAN_EMBED ? '&origin=' + encodeURIComponent(location.origin) : '') +
               (start ? '&start=' + start : '');
     var frame = document.createElement('iframe');
     frame.src = src;
     frame.title = '제작 영상';
-    frame.allow = 'accelerometer; encrypted-media; gyroscope; picture-in-picture';
+    frame.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
     frame.referrerPolicy = 'strict-origin-when-cross-origin';
     frame.allowFullscreen = true;
     box.innerHTML = '';
